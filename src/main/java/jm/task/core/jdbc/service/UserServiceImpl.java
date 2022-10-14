@@ -64,6 +64,7 @@ public class UserServiceImpl implements UserService {
             PreparedStatement preparedStatement = util.getConnection().prepareStatement(query);
             preparedStatement.setLong(1,id);
             preparedStatement.execute();
+            preparedStatement.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
