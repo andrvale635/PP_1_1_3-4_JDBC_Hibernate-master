@@ -10,23 +10,23 @@ public class Main {
         // реализуйте алгоритм здесь
         UserServiceImpl usi = new UserServiceImpl();
         ////////////////////////  OK  //////////////////////
-        System.out.println("Создание таблицы");
+        /*System.out.println("Создание таблицы");
         usi.createUsersTable();
-        System.out.println();
+        System.out.println();*/
 
         ////////////////////////  OK  //////////////////////
-        for (int i = 0; i<4; i++){
+        /*for (int i = 0; i<4; i++){
             usi.saveUser("New", "Test", (byte) 20);
-        }
+        }*/
 
         ////////////////////////  OK  //////////////////////
-        System.out.println("Получение всех данных из таблицы");
+        /*System.out.println("Получение всех данных из таблицы");
         usi.getAllUsers();
-        System.out.println();
+        System.out.println();*/
 
         ////////////////////////  OK  //////////////////////
         /*System.out.println("удаление user с id = n");
-        usi.removeUserById(4);
+        usi.removeUserById(9);
         usi.getAllUsers();
         System.out.println();*/
 
