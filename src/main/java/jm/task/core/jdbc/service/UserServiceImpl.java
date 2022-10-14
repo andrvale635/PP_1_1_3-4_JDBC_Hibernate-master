@@ -13,7 +13,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     public void createUsersTable() {
         Util util = new Util();
-        String query = "CREATE TABLE `newlesson1`.`users` (\n" +
+        String query = "CREATE TABLE  IF NOT EXISTS users (\n" +
                 "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
                 "  `name` VARCHAR(45) NOT NULL,\n" +
                 "  `lastName` VARCHAR(45) NOT NULL,\n" +
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
             preparedStatement.setString(2, lastName);
             preparedStatement.setInt(3, age);
             preparedStatement.execute();
-
+            System.out.println("User с именем – " + name + " добавлен в базу данных");
             preparedStatement.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
