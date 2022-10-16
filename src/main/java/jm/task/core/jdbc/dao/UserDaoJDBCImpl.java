@@ -23,10 +23,9 @@ public class UserDaoJDBCImpl implements UserDao {
                 "  `lastName` VARCHAR(45) NOT NULL,\n" +
                 "  `age` INT NOT NULL,\n" +
                 "  PRIMARY KEY (`id`));";
-        try {
-            PreparedStatement preparedStatement = util.getConnection().prepareStatement(query);
+        try (PreparedStatement preparedStatement = util.getConnection().prepareStatement(query)) {
             preparedStatement.executeUpdate();
-            preparedStatement.close();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -35,11 +34,9 @@ public class UserDaoJDBCImpl implements UserDao {
     public void dropUsersTable() {
         Util util = new Util();
         String query = "DROP TABLE IF EXISTS users";
-        try {
-            Statement statement = util.getConnection().createStatement();
+        try (Statement statement = util.getConnection().createStatement()) {
             statement.executeUpdate(query);
 
-            statement.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -49,13 +46,11 @@ public class UserDaoJDBCImpl implements UserDao {
         Util util = new Util();
         System.out.println("User с именем – " + name + " добавлен в базу данных");
         String query = "INSERT INTO users (name, lastName, age) VALUES (?,?,?)";
-        try {
-            PreparedStatement preparedStatement = util.getConnection().prepareStatement(query);
+        try (PreparedStatement preparedStatement = util.getConnection().prepareStatement(query)) {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastName);
             preparedStatement.setInt(3, age);
             preparedStatement.execute();
-            preparedStatement.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -64,11 +59,9 @@ public class UserDaoJDBCImpl implements UserDao {
     public void removeUserById(long id) {
         Util util = new Util();
         String query = "DELETE FROM users WHERE id = ?";
-        try {
-            PreparedStatement preparedStatement = util.getConnection().prepareStatement(query);
+        try (PreparedStatement preparedStatement = util.getConnection().prepareStatement(query)) {
             preparedStatement.setLong(1, id);
             preparedStatement.execute();
-            preparedStatement.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -77,8 +70,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public List<User> getAllUsers() {
         Util util = new Util();
         String query = "select * from users";
-        try {
-            Statement statement = util.getConnection().createStatement();
+        try (Statement statement = util.getConnection().createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
             List<User> list = new ArrayList<>();
             while (resultSet.next()) {
@@ -90,7 +82,6 @@ public class UserDaoJDBCImpl implements UserDao {
                 list.add(user);
                 System.out.println(user);
             }
-            statement.close();
             return list;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -100,11 +91,8 @@ public class UserDaoJDBCImpl implements UserDao {
     public void cleanUsersTable() {
         Util util = new Util();
         String query = "DELETE FROM users";
-        try {
-            Statement statement = util.getConnection().createStatement();
+        try (Statement statement = util.getConnection().createStatement()) {
             statement.executeUpdate(query);
-
-            statement.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
